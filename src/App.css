@@ -12,39 +12,39 @@
   background-size: cover;
   background-position: center;
 }
-.s1 {
+#one {
   top: 2em;
   left: 0;
 }
-.s2 {
+#two {
   top: 5em;
   left: 0.5em;
 }
-.s3 {
+#three {
   top: 9em;
   left: 1.5em;
 }
-.s4 {
+#four {
   top: 4.5em;
   left: 6em;
 }
-.s5 {
+#five {
   top: 12em;
   left: 9em;
 }
-.s6 {
+#six {
   top: 0;
   left: 9.5em;
 }
-.s7 {
+#seven {
   top: 8em;
   left: 11em;
 }
-.s8 {
+#eight {
   top: 3.5em;
   left: 18em;
 }
-.s9 {
+#nine {
   top: 10em;
   left: 24em;
 }
