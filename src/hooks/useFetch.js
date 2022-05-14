@@ -4,7 +4,7 @@ export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
 
   const dragProps = useRef();
-  
+
   const initialiseDrag = (event) => {
     const id = event.target.id;
     const current = document.getElementById(id);
@@ -46,52 +46,52 @@ export default function UseFetch() {
   };
 
   useEffect(() => {
-    let a = document.getElementById("one");
-    let b = document.getElementById("two");
-    let c = document.getElementById("three");
-    let d = document.getElementById("four");
-    let e = document.getElementById("five");
-    let f = document.getElementById("six");
-    let g = document.getElementById("seven");
-    let h = document.getElementById("eight");
-    let i = document.getElementById("nine");
+    let spider1 = document.getElementById("one");
+    let spider2 = document.getElementById("two");
+    let spider3 = document.getElementById("three");
+    let spider4 = document.getElementById("four");
+    let spider5 = document.getElementById("five");
+    let spider6 = document.getElementById("six");
+    let spider7 = document.getElementById("seven");
+    let spider8 = document.getElementById("eight");
+    let spider9 = document.getElementById("nine");
 
     const updatedItem = {
       one: {
-        x: a.getBoundingClientRect().x + 32,
-        y: a.getBoundingClientRect().y + 16,
+        x: spider1.getBoundingClientRect().x + 32,
+        y: spider1.getBoundingClientRect().y + 16,
       },
       two: {
-        x: b.getBoundingClientRect().x + 32,
-        y: b.getBoundingClientRect().y + 16,
+        x: spider2.getBoundingClientRect().x + 32,
+        y: spider2.getBoundingClientRect().y + 16,
       },
       three: {
-        x: c.getBoundingClientRect().x + 32,
-        y: c.getBoundingClientRect().y + 16,
+        x: spider3.getBoundingClientRect().x + 32,
+        y: spider3.getBoundingClientRect().y + 16,
       },
       four: {
-        x: d.getBoundingClientRect().x + 32,
-        y: d.getBoundingClientRect().y + 16,
+        x: spider4.getBoundingClientRect().x + 32,
+        y: spider4.getBoundingClientRect().y + 16,
       },
       five: {
-        x: e.getBoundingClientRect().x + 32,
-        y: e.getBoundingClientRect().y + 16,
+        x: spider5.getBoundingClientRect().x + 32,
+        y: spider5.getBoundingClientRect().y + 16,
       },
       six: {
-        x: f.getBoundingClientRect().x + 32,
-        y: f.getBoundingClientRect().y + 16,
+        x: spider6.getBoundingClientRect().x + 32,
+        y: spider6.getBoundingClientRect().y + 16,
       },
       seven: {
-        x: g.getBoundingClientRect().x + 32,
-        y: g.getBoundingClientRect().y + 16,
+        x: spider7.getBoundingClientRect().x + 32,
+        y: spider7.getBoundingClientRect().y + 16,
       },
       eight: {
-        x: h.getBoundingClientRect().x + 32,
-        y: h.getBoundingClientRect().y + 16,
+        x: spider8 .getBoundingClientRect().x + 32,
+        y: spider8 .getBoundingClientRect().y + 16,
       },
       nine: {
-        x: i.getBoundingClientRect().x + 32,
-        y: i.getBoundingClientRect().y + 16,
+        x: spider9.getBoundingClientRect().x + 32,
+        y: spider9.getBoundingClientRect().y + 16,
       },
     };
 
