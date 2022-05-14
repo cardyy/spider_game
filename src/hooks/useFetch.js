@@ -2,7 +2,9 @@ import { useState, useRef, useEffect } from "react";
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
+
   const dragProps = useRef();
+  
   const initialiseDrag = (event) => {
     const id = event.target.id;
     const current = document.getElementById(id);

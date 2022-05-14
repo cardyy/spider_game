@@ -1,45 +1,22 @@
 import React from "react";
-import "./App.css";
 import useFetch from "./hooks/useFetch";
+import spiders from "./spiders.js";
+
+import "./App.css";
 
 export default function App() {
   const { divCoordinates, initialiseDrag } = useFetch();
 
   return (
     <div className="App">
-      <div className="container" id="one" onMouseDown={initialiseDrag}></div>
-      <div className="container" id="two" onMouseDown={initialiseDrag}></div>
-      <div
-        className="container"
-        id="three"
-        onMouseDown={initialiseDrag}
-      ></div>
-      <div
-        className="container"
-        id="four"
-        onMouseDown={initialiseDrag}
-      ></div>
-      <div
-        className="container"
-        id="five"
-        onMouseDown={initialiseDrag}
-      ></div>
-      <div className="container" id="six" onMouseDown={initialiseDrag}></div>
-      <div
-        className="container"
-        id="seven"
-        onMouseDown={initialiseDrag}
-      ></div>
-      <div
-        className="container"
-        id="eight"
-        onMouseDown={initialiseDrag}
-      ></div>
-      <div
-        className="container"
-        id="nine"
-        onMouseDown={initialiseDrag}
-      ></div>
+      {spiders.map((spider) => (
+        <div
+          className="container"
+          id={spider}
+          key={spider}
+          onMouseDown={initialiseDrag}
+        />
+      ))}
       <svg className="l1">
         <line
           x1={divCoordinates.one !== undefined ? divCoordinates.one.x : 0}
