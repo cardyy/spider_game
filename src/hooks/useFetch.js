@@ -2,14 +2,16 @@ import { useState, useRef, useEffect } from "react";
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
+  const [gameOver,setGameOver]=useState(false)
   const [line, setLine] = useState({});
-  const [hasIntersected, setHasIntersected] = useState();
   let lineObj
 
   const dragProps = useRef();
 
   const initialiseDrag = (event) => {
-    setHasIntersected(!hasIntersected)
+   
+      
+    
     //spider div id
     const id = event.target.id;
     const current = document.getElementById(id);
@@ -53,7 +55,7 @@ export default function UseFetch() {
 
     // drag function
     const startDragging = ({ clientX, clientY }) => {
-
+      
     // update coordinates of dragged div only
       const obj = {
         ...divCoordinates,
@@ -134,7 +136,9 @@ export default function UseFetch() {
     window.addEventListener("mouseup", stopDragging, false);
   };
 
+
   useEffect(() => {
+    
     if (Object.getOwnPropertyNames(divCoordinates).length === 0) return;
     const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
       const a_dx = x2 - x1;
@@ -211,9 +215,11 @@ export default function UseFetch() {
       lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
     });
     setLine(lineObj)
-  }, [divCoordinates]);
+    if(lineObj === undefined) setGameOver(true)
+  }, [divCoordinates,gameOver]);
 
   useEffect(() => {
+    
     let spider1 = document.getElementById("one");
     let spider2 = document.getElementById("two");
     let spider3 = document.getElementById("three");
@@ -264,5 +270,5 @@ export default function UseFetch() {
 
     setDivCoordinates(updatedItem);
   }, []);
-  return { divCoordinates, setDivCoordinates, initialiseDrag,line };
+  return { divCoordinates, setDivCoordinates, initialiseDrag,line,gameOver,setGameOver };
 }

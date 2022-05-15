@@ -1,14 +1,16 @@
 import React from "react";
 import useFetch from "./hooks/useFetch";
 import spiders from "./spiders.js";
+import Modal from './modal'
 
 import "./App.css";
 
 export default function App() {
-  const { divCoordinates, initialiseDrag, line } = useFetch();
-
+  const { divCoordinates, initialiseDrag, line, gameOver,setGameOver } = useFetch();
+  
   return (
     <div className="App">
+      {gameOver && <Modal />}
       {spiders &&
         spiders.map((spider) => (
           <div
