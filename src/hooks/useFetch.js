@@ -1,15 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-const spiderCombinations = [['one,eight'], ['eight', 'three'], ['eight', 'five'], ['two', 'four']
-    , ['three', 'five'], ['four', 'five'], ['six','five'], ['seven','eight'], ['seven','nine']]
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
-  const [hasIntersected, setHasIntersected] = useState()
-  const [isDragging,setIsDragging] = useState(false)
+  const [hasIntersected, setHasIntersected] = useState();
+  const [isDragging, setIsDragging] = useState(false);
 
   const dragProps = useRef();
-  
-  
+
   const initialiseDrag = (event) => {
     const id = event.target.id;
     const current = document.getElementById(id);
@@ -22,67 +19,76 @@ export default function UseFetch() {
         },
       };
       setDivCoordinates(obj);
-      setIsDragging(!isDragging)
-      const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4,item) => {
-     
+      setIsDragging(!isDragging);
+      const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
         const a_dx = x2 - x1;
-       const a_dy = y2 - y1;
-       const b_dx = x4 - x3;
-       const b_dy = y4 - y3;
-       const s = (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
-        const t = (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+        const a_dy = y2 - y1;
+        const b_dx = x4 - x3;
+        const b_dy = y4 - y3;
+        const s =
+          (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
+        const t =
+          (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
         const intersected = (() => {
-          if(s >= 0 &&
-            s <= 1 &&
-            t >= 0 &&
-            t <= 1) return true
-          return false
-        })()
-        
+          if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
+          return false;
+        })();
+
         if (
           intersected &&
-            x1 !== x3 &&
-            x1 !== x4 &&
-            x2 !== x3 &&
-            x2 !== x4 && 
-            y1 !== y3 &&
-            y1 !== y4 &&
-            y2 !== y3 &&
-            y2 !== y4) {
-            item[0].setAttribute("stroke", "red")
-          item[1].setAttribute("stroke", "red")
+          x1 !== x3 &&
+          x1 !== x4 &&
+          x2 !== x3 &&
+          x2 !== x4 &&
+          y1 !== y3 &&
+          y1 !== y4 &&
+          y2 !== y3 &&
+          y2 !== y4
+        ) {
+          item[0].setAttribute("stroke", "red");
+          item[1].setAttribute("stroke", "red");
         } else {
-          item[0].setAttribute("stroke", "yellow")
-          item[1].setAttribute("stroke", "yellow")
+          item[0].setAttribute("stroke", "yellow");
+          item[1].setAttribute("stroke", "yellow");
         }
-      }
+      };
+
       let line1 = document.getElementById("line1");
-    let line2 = document.getElementById("line2");
-    let line3 = document.getElementById("line3");
-    let line4 = document.getElementById("line4");
-    let line5 = document.getElementById("line5");
-    let line6 = document.getElementById("line6");
-    let line7 = document.getElementById("line7");
-    let line8 = document.getElementById("line8");
-    let line9 = document.getElementById("line9");
-    let newSpidersArray = [line1, line2, line3, line4, line5, line6, line7, line8, line9];
-      const lineIntersectionCombination = newSpidersArray.flatMap(
-        (v, i) => newSpidersArray.slice(i+1).map(w => [v , w] )
+      let line2 = document.getElementById("line2");
+      let line3 = document.getElementById("line3");
+      let line4 = document.getElementById("line4");
+      let line5 = document.getElementById("line5");
+      let line6 = document.getElementById("line6");
+      let line7 = document.getElementById("line7");
+      let line8 = document.getElementById("line8");
+      let line9 = document.getElementById("line9");
+      let newSpidersArray = [
+        line1,
+        line2,
+        line3,
+        line4,
+        line5,
+        line6,
+        line7,
+        line8,
+        line9,
+      ];
+      const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
+        newSpidersArray.slice(i + 1).map((w) => [v, w])
       );
-  
+
       lineIntersectionCombination.forEach((item) => {
-        let x1 = item[0].x1.baseVal.value-10
-        let y1 = item[0].y1.animVal.value-10
-        let x2 = item[0].x2.baseVal.value-10
-        let y2 = item[0].y2.animVal.value-10
-        let x3 = item[1].x1.baseVal.value-10
-        let y3 = item[1].y1.animVal.value-10
-        let x4 = item[1].x2.baseVal.value-10
-        let y4 = item[1].y2.animVal.value-10
-        lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4,item)
-      })
-      
-      
+        let x1 = item[0].x1.baseVal.value - 10;
+        let y1 = item[0].y1.animVal.value - 10;
+        let x2 = item[0].x2.baseVal.value - 10;
+        let y2 = item[0].y2.animVal.value - 10;
+        let x3 = item[1].x1.baseVal.value - 10;
+        let y3 = item[1].y1.animVal.value - 10;
+        let x4 = item[1].x2.baseVal.value - 10;
+        let y4 = item[1].y2.animVal.value - 10;
+        lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
+      });
+
       current.style.transform = `translate(${
         dragProps.current.dragStartLeft + clientX - dragProps.current.dragStartX
       }px, ${
@@ -111,69 +117,71 @@ export default function UseFetch() {
   };
 
   useEffect(() => {
-    
-   if(Object.getOwnPropertyNames(divCoordinates).length === 0 ) return
-   let line1 = document.getElementById("line1");
-   let line2 = document.getElementById("line2");
-   let line3 = document.getElementById("line3");
-   let line4 = document.getElementById("line4");
-   let line5 = document.getElementById("line5");
-   let line6 = document.getElementById("line6");
-   let line7 = document.getElementById("line7");
-   let line8 = document.getElementById("line8");
-   let line9 = document.getElementById("line9");
-   let newSpidersArray = [line1, line2, line3, line4, line5, line6, line7, line8, line9];
-    const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4,item) => {
-     
+    if (Object.getOwnPropertyNames(divCoordinates).length === 0) return;
+    const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
       const a_dx = x2 - x1;
-     const a_dy = y2 - y1;
-     const b_dx = x4 - x3;
-     const b_dy = y4 - y3;
-     const s = (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
-      const t = (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+      const a_dy = y2 - y1;
+      const b_dx = x4 - x3;
+      const b_dy = y4 - y3;
+      const s =
+        (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
+      const t =
+        (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
       const intersected = (() => {
-        if(s >= 0 &&
-          s <= 1 &&
-          t >= 0 &&
-          t <= 1) return true
-        return false
-      })()
+        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
+        return false;
+      })();
       if (
         intersected &&
-          x1 !== x3 &&
-          x1 !== x4 &&
-          x2 !== x3 &&
-          x2 !== x4 && 
-          y1 !== y3 &&
-          y1 !== y4 &&
-          y2 !== y3 &&
-          y2 !== y4) {
-          item[0].setAttribute("stroke", "red")
-        item[1].setAttribute("stroke", "red")
-      } 
-  }
-
-    const lineIntersectionCombination = newSpidersArray.flatMap(
-      (v, i) => newSpidersArray.slice(i+1).map(w => [v , w] )
+        x1 !== x3 &&
+        x1 !== x4 &&
+        x2 !== x3 &&
+        x2 !== x4 &&
+        y1 !== y3 &&
+        y1 !== y4 &&
+        y2 !== y3 &&
+        y2 !== y4
+      ) {
+        item[0].setAttribute("stroke", "red");
+        item[1].setAttribute("stroke", "red");
+      }
+    };
+    let line1 = document.getElementById("line1");
+    let line2 = document.getElementById("line2");
+    let line3 = document.getElementById("line3");
+    let line4 = document.getElementById("line4");
+    let line5 = document.getElementById("line5");
+    let line6 = document.getElementById("line6");
+    let line7 = document.getElementById("line7");
+    let line8 = document.getElementById("line8");
+    let line9 = document.getElementById("line9");
+    let newSpidersArray = [
+      line1,
+      line2,
+      line3,
+      line4,
+      line5,
+      line6,
+      line7,
+      line8,
+      line9,
+    ];
+    const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
+      newSpidersArray.slice(i + 1).map((w) => [v, w])
     );
 
-    lineIntersectionCombination.forEach((item,index) => {
-      
-
-       
-  let x1 = item[0].x1.baseVal.value-10
-  let y1 = item[0].y1.animVal.value-10
-  let x2 = item[0].x2.baseVal.value-10
-  let y2 = item[0].y2.animVal.value-10
-  let x3 = item[1].x1.baseVal.value-10
-  let y3 = item[1].y1.animVal.value-10
-  let x4 = item[1].x2.baseVal.value-10
-  let y4 = item[1].y2.animVal.value-10
-      lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4,item)
-    })
-  
-    
-  },[hasIntersected,divCoordinates])
+    lineIntersectionCombination.forEach((item, index) => {
+      let x1 = item[0].x1.baseVal.value - 10;
+      let y1 = item[0].y1.animVal.value - 10;
+      let x2 = item[0].x2.baseVal.value - 10;
+      let y2 = item[0].y2.animVal.value - 10;
+      let x3 = item[1].x1.baseVal.value - 10;
+      let y3 = item[1].y1.animVal.value - 10;
+      let x4 = item[1].x2.baseVal.value - 10;
+      let y4 = item[1].y2.animVal.value - 10;
+      lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
+    });
+  }, [hasIntersected, divCoordinates]);
 
   useEffect(() => {
     let spider1 = document.getElementById("one");
@@ -185,7 +193,6 @@ export default function UseFetch() {
     let spider7 = document.getElementById("seven");
     let spider8 = document.getElementById("eight");
     let spider9 = document.getElementById("nine");
-
     const updatedItem = {
       one: {
         x: spider1.getBoundingClientRect().x + 32,
@@ -216,8 +223,8 @@ export default function UseFetch() {
         y: spider7.getBoundingClientRect().y + 16,
       },
       eight: {
-        x: spider8 .getBoundingClientRect().x + 32,
-        y: spider8 .getBoundingClientRect().y + 16,
+        x: spider8.getBoundingClientRect().x + 32,
+        y: spider8.getBoundingClientRect().y + 16,
       },
       nine: {
         x: spider9.getBoundingClientRect().x + 32,
