@@ -6,7 +6,6 @@ export default function Timer_component() {
     setTimeout(() => {
       setCounter((x) => x + 1);
     }, 1000);
-    
   }, [counter]);
   return (
     <div className="timmer">

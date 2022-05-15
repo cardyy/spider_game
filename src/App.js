@@ -13,9 +13,9 @@ export default function App() {
   return (
     <div className="App">
       {gameOver && <Modal />}
+      {!gameOver && <Timmer />}
       <Spiders initialiseDrag={initialiseDrag} />
       <Lines line={line} divCoordinates={divCoordinates} />
-      <Timmer />
     </div>
   );
 }
