@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+const spiderCombinations = [['one,eight'], ['eight', 'three'], ['eight', 'five'], ['two', 'four']
+    , ['three', 'five'], ['four', 'five'], ['six','five'], ['seven','eight'], ['seven','nine']]
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
+  const [hasIntersected,setHasIntersected] = useState()
 
   const dragProps = useRef();
 
@@ -44,6 +47,25 @@ export default function UseFetch() {
     window.addEventListener("mousemove", startDragging, false);
     window.addEventListener("mouseup", stopDragging, false);
   };
+
+  useEffect(() => {
+    const newSpidersArray = [...spiderCombinations]
+    const lineIntersectionCombination = newSpidersArray.flatMap(
+      (v, i) => newSpidersArray.slice(i+1).map( w => v + ',' + w )
+    );
+  
+    const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4) => {
+     
+      const a_dx = x2 - x1;
+      const a_dy = y2 - y1;
+      const b_dx = x4 - x3;
+      const b_dy = y4 - y3;
+      const s = (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
+      const t = (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+      setHasIntersected(s >= 0 && s <= 1 && t >= 0 && t <= 1);
+    } 
+    lineSegmentsIntersect()
+  },[hasIntersected])
 
   useEffect(() => {
     let spider1 = document.getElementById("one");

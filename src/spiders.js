@@ -1,3 +1,3 @@
-const spiders = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const spiders = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
-export default spiders;
+export default spiders

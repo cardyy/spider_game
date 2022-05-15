@@ -23,7 +23,7 @@ export default function App() {
           y1={divCoordinates.one !== undefined ? divCoordinates.one.y : 0}
           x2={divCoordinates.eight !== undefined ? divCoordinates.eight.x : 0}
           y2={divCoordinates.eight !== undefined ? divCoordinates.eight.y : 0}
-          stroke="yellow"
+          stroke={"yellow"}
         />
         <line
           x1={divCoordinates.eight !== undefined ? divCoordinates.eight.x : 0}
