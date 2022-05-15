@@ -2,15 +2,59 @@ import { useState, useRef, useEffect } from "react";
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
+  const [line, setLine] = useState({});
   const [hasIntersected, setHasIntersected] = useState();
-  const [isDragging, setIsDragging] = useState(false);
+  let lineObj
 
   const dragProps = useRef();
 
   const initialiseDrag = (event) => {
+    setHasIntersected(!hasIntersected)
+    //spider div id
     const id = event.target.id;
     const current = document.getElementById(id);
+
+    //function to detect when two lines meet
+    const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
+      const a_dx = x2 - x1;
+      const a_dy = y2 - y1;
+      const b_dx = x4 - x3;
+      const b_dy = y4 - y3;
+      const s =
+        (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
+      const t =
+        (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+      const intersected = (() => {
+        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
+        return false;
+      })();
+
+      if (
+        x1 !== x3 &&
+        x1 !== x4 &&
+        x2 !== x3 &&
+        x2 !== x4 &&
+        y1 !== y3 &&
+        y1 !== y4 &&
+        y2 !== y3 &&
+        y2 !== y4 &&
+        intersected
+      )  {
+        lineObj = {
+          ...lineObj,
+          [item[0].id]: 'red',
+          [item[1].id]: 'red'
+          };
+      }
+      
+       
+    };
+
+
+    // drag function
     const startDragging = ({ clientX, clientY }) => {
+
+    // update coordinates of dragged div only
       const obj = {
         ...divCoordinates,
         [id]: {
@@ -19,40 +63,10 @@ export default function UseFetch() {
         },
       };
       setDivCoordinates(obj);
-      setIsDragging(!isDragging);
-      const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
-        const a_dx = x2 - x1;
-        const a_dy = y2 - y1;
-        const b_dx = x4 - x3;
-        const b_dy = y4 - y3;
-        const s =
-          (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
-        const t =
-          (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
-        const intersected = (() => {
-          if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
-          return false;
-        })();
 
-        if (
-          intersected &&
-          x1 !== x3 &&
-          x1 !== x4 &&
-          x2 !== x3 &&
-          x2 !== x4 &&
-          y1 !== y3 &&
-          y1 !== y4 &&
-          y2 !== y3 &&
-          y2 !== y4
-        ) {
-          item[0].setAttribute("stroke", "red");
-          item[1].setAttribute("stroke", "red");
-        } else {
-          item[0].setAttribute("stroke", "yellow");
-          item[1].setAttribute("stroke", "yellow");
-        }
-      };
+      
 
+    // iterate through all the possible line meeting combinations
       let line1 = document.getElementById("line1");
       let line2 = document.getElementById("line2");
       let line3 = document.getElementById("line3");
@@ -78,17 +92,20 @@ export default function UseFetch() {
       );
 
       lineIntersectionCombination.forEach((item) => {
-        let x1 = item[0].x1.baseVal.value - 10;
-        let y1 = item[0].y1.animVal.value - 10;
-        let x2 = item[0].x2.baseVal.value - 10;
-        let y2 = item[0].y2.animVal.value - 10;
-        let x3 = item[1].x1.baseVal.value - 10;
-        let y3 = item[1].y1.animVal.value - 10;
-        let x4 = item[1].x2.baseVal.value - 10;
-        let y4 = item[1].y2.animVal.value - 10;
+        if (item[0] === null ) return
+        let x1 = item[0].x1.baseVal.value;
+        let y1 = item[0].y1.animVal.value ;
+        let x2 = item[0].x2.baseVal.value ;
+        let y2 = item[0].y2.animVal.value ;
+        let x3 = item[1].x1.baseVal.value ;
+        let y3 = item[1].y1.animVal.value ;
+        let x4 = item[1].x2.baseVal.value ;
+        let y4 = item[1].y2.animVal.value ;
+
+        // call the function to detect when two lines meet
         lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
       });
-
+      setLine(lineObj)
       current.style.transform = `translate(${
         dragProps.current.dragStartLeft + clientX - dragProps.current.dragStartX
       }px, ${
@@ -96,6 +113,7 @@ export default function UseFetch() {
       }px)`;
     };
 
+    // stop drag function
     const stopDragging = () => {
       window.removeEventListener("mousemove", startDragging, false);
       window.removeEventListener("mouseup", stopDragging, false);
@@ -127,12 +145,14 @@ export default function UseFetch() {
         (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
       const t =
         (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+      
+      
+      
       const intersected = (() => {
         if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
         return false;
       })();
       if (
-        intersected &&
         x1 !== x3 &&
         x1 !== x4 &&
         x2 !== x3 &&
@@ -140,12 +160,20 @@ export default function UseFetch() {
         y1 !== y3 &&
         y1 !== y4 &&
         y2 !== y3 &&
-        y2 !== y4
+        y2 !== y4 &&
+        intersected
       ) {
-        item[0].setAttribute("stroke", "red");
-        item[1].setAttribute("stroke", "red");
+        lineObj = {
+          ...lineObj,
+          [item[0].id]: 'red',
+          [item[1].id]: 'red'
+          };
+          
+          
       }
+      
     };
+    
     let line1 = document.getElementById("line1");
     let line2 = document.getElementById("line2");
     let line3 = document.getElementById("line3");
@@ -170,18 +198,20 @@ export default function UseFetch() {
       newSpidersArray.slice(i + 1).map((w) => [v, w])
     );
 
-    lineIntersectionCombination.forEach((item, index) => {
-      let x1 = item[0].x1.baseVal.value - 10;
-      let y1 = item[0].y1.animVal.value - 10;
-      let x2 = item[0].x2.baseVal.value - 10;
-      let y2 = item[0].y2.animVal.value - 10;
-      let x3 = item[1].x1.baseVal.value - 10;
-      let y3 = item[1].y1.animVal.value - 10;
-      let x4 = item[1].x2.baseVal.value - 10;
-      let y4 = item[1].y2.animVal.value - 10;
+    lineIntersectionCombination.forEach((item) => {
+      if (item[0] === null ) return
+      let x1 = item[0].x1.baseVal.value ;
+      let y1 = item[0].y1.animVal.value ;
+      let x2 = item[0].x2.baseVal.value ;
+      let y2 = item[0].y2.animVal.value ;
+      let x3 = item[1].x1.baseVal.value ;
+      let y3 = item[1].y1.animVal.value ;
+      let x4 = item[1].x2.baseVal.value ;
+      let y4 = item[1].y2.animVal.value ;
       lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
     });
-  }, [hasIntersected, divCoordinates]);
+    setLine(lineObj)
+  }, [divCoordinates]);
 
   useEffect(() => {
     let spider1 = document.getElementById("one");
@@ -234,5 +264,5 @@ export default function UseFetch() {
 
     setDivCoordinates(updatedItem);
   }, []);
-  return { divCoordinates, setDivCoordinates, initialiseDrag };
+  return { divCoordinates, setDivCoordinates, initialiseDrag,line };
 }
