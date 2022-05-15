@@ -9,11 +9,17 @@ import "./App.css";
 
 export default function App() {
   const { divCoordinates, initialiseDrag, line, gameOver } = useFetch();
+  const isGameOver = (() => {
+    if (gameOver) {
+      return <Modal />;
+    } else {
+      return <Timmer />;
+    }
+  })();
 
   return (
     <div className="App">
-      {gameOver && <Modal />}
-      {!gameOver && <Timmer />}
+      {isGameOver}
       <Spiders initialiseDrag={initialiseDrag} />
       <Lines line={line} divCoordinates={divCoordinates} />
     </div>
