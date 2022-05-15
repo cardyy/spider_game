@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Check_intersection(setLine,setGameOver) {
-  let lineObj;
+  let lineObj = {}
   const lineSegmentsIntersect = (x1, y1, x2, y2, x3, y3, x4, y4, item) => {
     const a_dx = x2 - x1;
     const a_dy = y2 - y1;
