@@ -10,10 +10,11 @@ export default function Modal() {
   }, [counter]);
 
   return (
-
-    <div className="modal" id="modal">
-      <div className="content">Congradulations you have won the game!</div>
-      <div className="content">waiting for new level in: {counter}</div>
+    <div className="modal-container">
+      <div className="modal" id="modal">
+        <div className="content">Congradulations you have won the game!</div>
+        <div className="content">waiting for new level in: {counter}</div>
+      </div>
     </div>
   );
 }
