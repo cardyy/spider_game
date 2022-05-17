@@ -10,6 +10,7 @@ export default function UseFetch() {
 
   const dragProps = useRef();
 
+
   const initialiseDrag = (event) => {
     //spider div id
     const id = event.target.id;
@@ -113,6 +114,7 @@ export default function UseFetch() {
     window.addEventListener("mousemove", startDragging, false);
     window.addEventListener("mouseup", stopDragging, false);
   };
+
 
   useEffect(() => {
     if (Object.getOwnPropertyNames(divCoordinates).length === 0) return;
