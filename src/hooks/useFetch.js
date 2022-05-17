@@ -177,56 +177,19 @@ export default function UseFetch() {
   }, [divCoordinates, gameOver]);
 
   useEffect(() => {
-    let spider1 = document.getElementById("one");
-    let spider2 = document.getElementById("two");
-    let spider3 = document.getElementById("three");
-    let spider4 = document.getElementById("four");
-    let spider5 = document.getElementById("five");
-    let spider6 = document.getElementById("six");
-    let spider7 = document.getElementById("seven");
-    let spider8 = document.getElementById("eight");
-    let spider9 = document.getElementById("nine");
-    const updatedItem = {
-      one: {
-        x: spider1.getBoundingClientRect().x + 32,
-        y: spider1.getBoundingClientRect().y + 16,
-      },
-      two: {
-        x: spider2.getBoundingClientRect().x + 32,
-        y: spider2.getBoundingClientRect().y + 16,
-      },
-      three: {
-        x: spider3.getBoundingClientRect().x + 32,
-        y: spider3.getBoundingClientRect().y + 16,
-      },
-      four: {
-        x: spider4.getBoundingClientRect().x + 32,
-        y: spider4.getBoundingClientRect().y + 16,
-      },
-      five: {
-        x: spider5.getBoundingClientRect().x + 32,
-        y: spider5.getBoundingClientRect().y + 16,
-      },
-      six: {
-        x: spider6.getBoundingClientRect().x + 32,
-        y: spider6.getBoundingClientRect().y + 16,
-      },
-      seven: {
-        x: spider7.getBoundingClientRect().x + 32,
-        y: spider7.getBoundingClientRect().y + 16,
-      },
-      eight: {
-        x: spider8.getBoundingClientRect().x + 32,
-        y: spider8.getBoundingClientRect().y + 16,
-      },
-      nine: {
-        x: spider9.getBoundingClientRect().x + 32,
-        y: spider9.getBoundingClientRect().y + 16,
-      },
-    };
-
+    let updatedItem = {}
+    spiders.forEach((item) => {
+        updatedItem = {
+            ...updatedItem,
+            [item]:  {
+              x: document.getElementById(item).getBoundingClientRect().x + 32,
+              y: document.getElementById(item).getBoundingClientRect().y + 16,
+            },
+          }
+        }
+      )
     setDivCoordinates(updatedItem);
-  }, []);
+  }, [spiders]);
   return {
     divCoordinates,
     setDivCoordinates,

@@ -33,7 +33,7 @@ export default function Lines_component(props) {
                     id={line[2]}
                     stroke={
                       props.line !== undefined && props.line[line[2]] !== undefined
-                        ? props.line.line1
+                        ? props.line[line[2]] 
                         : "yellow"
                     }
                   />
