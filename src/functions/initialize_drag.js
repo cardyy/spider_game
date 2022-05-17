@@ -1,16 +1,15 @@
-import check_intersection from "./check_intersection";
 
 export default function Initialize_drag(
   dragProps,
   divCoordinates,
   setDivCoordinates,
   setLine,
-  setGameOver
+  setGameOver,
+  lineSegmentsIntersect
 ) {
   const initialiseDrag = (event) => {
     const id = event.target.id;
     const current = document.getElementById(id);
-    const { lineSegmentsIntersect } = check_intersection(setLine,setGameOver);
     const startDragging = ({ clientX, clientY }) => {
       // update coordinates of dragged div only
       const obj = {
