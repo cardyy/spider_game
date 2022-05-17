@@ -1,7 +1,9 @@
 import React from "react";
-import spiders from "./spidersArray.js";
+import spidersArray from "./spidersArray.js";
+
 
 export default function Spiders_component(props) {
+  const { spiders } = spidersArray
   return (
     <>
       {spiders &&

@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react";
+import spidersArray from "../components/spidersArray";
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [line, setLine] = useState({});
+  const { spiders,lines } = spidersArray
   let lineObj;
 
   const dragProps = useRef();
@@ -60,26 +62,11 @@ export default function UseFetch() {
       setDivCoordinates(obj);
 
       // iterate through all the possible line meeting combinations
-      let line1 = document.getElementById("line1");
-      let line2 = document.getElementById("line2");
-      let line3 = document.getElementById("line3");
-      let line4 = document.getElementById("line4");
-      let line5 = document.getElementById("line5");
-      let line6 = document.getElementById("line6");
-      let line7 = document.getElementById("line7");
-      let line8 = document.getElementById("line8");
-      let line9 = document.getElementById("line9");
-      let newSpidersArray = [
-        line1,
-        line2,
-        line3,
-        line4,
-        line5,
-        line6,
-        line7,
-        line8,
-        line9,
-      ];
+      let newSpidersArray = []
+      lines.forEach((item) => {
+          newSpidersArray.push(document.getElementById(item[2]));
+        }
+      )
       const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
         newSpidersArray.slice(i + 1).map((w) => [v, w])
       );
@@ -162,26 +149,11 @@ export default function UseFetch() {
       }
     };
 
-    let line1 = document.getElementById("line1");
-    let line2 = document.getElementById("line2");
-    let line3 = document.getElementById("line3");
-    let line4 = document.getElementById("line4");
-    let line5 = document.getElementById("line5");
-    let line6 = document.getElementById("line6");
-    let line7 = document.getElementById("line7");
-    let line8 = document.getElementById("line8");
-    let line9 = document.getElementById("line9");
-    let newSpidersArray = [
-      line1,
-      line2,
-      line3,
-      line4,
-      line5,
-      line6,
-      line7,
-      line8,
-      line9,
-    ];
+    let newSpidersArray = []
+      lines.forEach((item) => {
+          newSpidersArray.push(document.getElementById(item[2]));
+        }
+      )
     const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
       newSpidersArray.slice(i + 1).map((w) => [v, w])
     );
@@ -199,7 +171,7 @@ export default function UseFetch() {
       lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
     });
     setLine(lineObj);
-    if (lineObj === undefined) setGameOver(true);
+   if (lineObj === undefined) setGameOver(true);
   }, [divCoordinates, gameOver]);
 
   useEffect(() => {
