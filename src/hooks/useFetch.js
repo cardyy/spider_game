@@ -7,6 +7,7 @@ export default function UseFetch() {
   const [gameOver, setGameOver] = useState(false);
   const [line, setLine] = useState({});
   const dragProps = useRef();
+  
   const { lineSegmentsIntersect } = check_intersection(setLine, setGameOver);
   
   const { initialiseDrag } = drag_spider(
