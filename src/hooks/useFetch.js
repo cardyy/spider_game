@@ -1,15 +1,14 @@
-import { useState, useRef, useEffect } from "react";
-import spidersArray from "../components/spidersArray";
+import { useState, useRef, useEffect } from 'react';
+import spidersArray from '../components/spidersArray';
 
 export default function UseFetch() {
   const [divCoordinates, setDivCoordinates] = useState({});
   const [gameOver, setGameOver] = useState(false);
   const [line, setLine] = useState({});
-  const { spiders,lines } = spidersArray
+  const { spiders, lines } = spidersArray;
   let lineObj;
 
   const dragProps = useRef();
-
 
   const initialiseDrag = (event) => {
     //spider div id
@@ -44,8 +43,8 @@ export default function UseFetch() {
       ) {
         lineObj = {
           ...lineObj,
-          [item[0].id]: "red",
-          [item[1].id]: "red",
+          [item[0].id]: 'red',
+          [item[1].id]: 'red',
         };
       }
     };
@@ -63,11 +62,10 @@ export default function UseFetch() {
       setDivCoordinates(obj);
 
       // iterate through all the possible line meeting combinations
-      let newSpidersArray = []
+      let newSpidersArray = [];
       lines.forEach((item) => {
-          newSpidersArray.push(document.getElementById(item[2]));
-        }
-      )
+        newSpidersArray.push(document.getElementById(item[2]));
+      });
       const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
         newSpidersArray.slice(i + 1).map((w) => [v, w])
       );
@@ -96,8 +94,8 @@ export default function UseFetch() {
 
     // stop drag function
     const stopDragging = () => {
-      window.removeEventListener("mousemove", startDragging, false);
-      window.removeEventListener("mouseup", stopDragging, false);
+      window.removeEventListener('mousemove', startDragging, false);
+      window.removeEventListener('mouseup', stopDragging, false);
     };
 
     const { target, clientX, clientY } = event;
@@ -111,10 +109,9 @@ export default function UseFetch() {
       dragStartX: clientX,
       dragStartY: clientY,
     };
-    window.addEventListener("mousemove", startDragging, false);
-    window.addEventListener("mouseup", stopDragging, false);
+    window.addEventListener('mousemove', startDragging, false);
+    window.addEventListener('mouseup', stopDragging, false);
   };
-
 
   useEffect(() => {
     if (Object.getOwnPropertyNames(divCoordinates).length === 0) return;
@@ -145,17 +142,16 @@ export default function UseFetch() {
       ) {
         lineObj = {
           ...lineObj,
-          [item[0].id]: "red",
-          [item[1].id]: "red",
+          [item[0].id]: 'red',
+          [item[1].id]: 'red',
         };
       }
     };
 
-    let newSpidersArray = []
-      lines.forEach((item) => {
-          newSpidersArray.push(document.getElementById(item[2]));
-        }
-      )
+    let newSpidersArray = [];
+    lines.forEach((item) => {
+      newSpidersArray.push(document.getElementById(item[2]));
+    });
     const lineIntersectionCombination = newSpidersArray.flatMap((v, i) =>
       newSpidersArray.slice(i + 1).map((w) => [v, w])
     );
@@ -173,21 +169,46 @@ export default function UseFetch() {
       lineSegmentsIntersect(x1, y1, x2, y2, x3, y3, x4, y4, item);
     });
     setLine(lineObj);
-   if (lineObj === undefined) setGameOver(true);
+    if (lineObj === undefined) setGameOver(true);
   }, [divCoordinates, gameOver]);
 
   useEffect(() => {
-    let updatedItem = {}
-    spiders.forEach((item) => {
-        updatedItem = {
-            ...updatedItem,
-            [item]:  {
-              x: document.getElementById(item).getBoundingClientRect().x + 32,
-              y: document.getElementById(item).getBoundingClientRect().y + 16,
-            },
-          }
+    const level = localStorage.getItem('level');
+    if (level === null) {
+      localStorage.setItem('level', 1);
+    }
+    if (gameOver === true) {
+      setTimeout(() => {
+        if (level === '1') {
+          localStorage.setItem('level', 2);
+          setGameOver(false);
+          window.location.reload();
         }
-      )
+        if (level === '2') {
+          localStorage.setItem('level', 3);
+          setGameOver(false);
+          window.location.reload();
+        }
+        if (level === '3') {
+          localStorage.setItem('level', 1);
+          setGameOver(false);
+          window.location.reload();
+        }
+      }, 3000);
+    }
+  }, [gameOver]);
+
+  useEffect(() => {
+    let updatedItem = {};
+    spiders.forEach((item) => {
+      updatedItem = {
+        ...updatedItem,
+        [item]: {
+          x: document.getElementById(item).getBoundingClientRect().x + 32,
+          y: document.getElementById(item).getBoundingClientRect().y + 16,
+        },
+      };
+    });
     setDivCoordinates(updatedItem);
   }, [spiders]);
   return {
@@ -195,6 +216,6 @@ export default function UseFetch() {
     setDivCoordinates,
     initialiseDrag,
     line,
-    gameOver
+    gameOver,
   };
 }

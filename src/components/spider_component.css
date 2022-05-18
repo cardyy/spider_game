@@ -1,0 +1,70 @@
+.container {
+  width: 3em;
+  height: 3em;
+  position: absolute;
+  cursor: grab;
+  background-image: url('../assets/spider.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+div :nth-child(2) {
+  top: 2em;
+  left: 0;
+}
+div :nth-child(3) {
+  top: 5em;
+  left: 0.5em;
+}
+div :nth-child(4) {
+  top: 9em;
+  left: 1.5em;
+}
+div :nth-child(5) {
+  top: 4.5em;
+  left: 6em;
+}
+div :nth-child(6) {
+  top: 12em;
+  left: 9em;
+}
+div :nth-child(7) {
+  top: 0;
+  left: 9.5em;
+}
+div :nth-child(8) {
+  top: 8em;
+  left: 11em;
+}
+div :nth-child(9) {
+  top: 3.5em;
+  left: 18em;
+}
+div :nth-child(10) {
+  top: 10em;
+  left: 24em;
+}
+div :nth-child(11) {
+  top: 18em;
+  left: 21em;
+}
+div :nth-child(12) {
+  top: 13.5em;
+  left: 10em;
+}
+div :nth-child(13) {
+  top: 5em;
+  left: 17em;
+}
+div :nth-child(14) {
+  top: 8em;
+  left: 21em;
+}
+div :nth-child(15) {
+  top: 9em;
+  left: 27em;
+}
+div :nth-child(16) {
+  top: 9.5em;
+  left: 9.5em;
+}
